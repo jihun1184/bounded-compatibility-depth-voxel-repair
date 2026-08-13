@@ -1,115 +1,95 @@
 # Reproducibility package
 
-Code and reference data for the numeric claims in *"Bounded Compatibility
-Depth in Local Repairs of P-Well-Composed Voxel Sets"* (submitted to
-SIAM Journal on Imaging Sciences).
+Code and frozen reference data for the numeric claims in *Bounded
+Compatibility Depth in Local Repairs of P-Well-Composed Voxel Sets*
+(submitted to the SIAM Journal on Imaging Sciences).
 
-No external dependencies: Python ≥ 3.9 standard library only (see
-`requirements.txt`).
+The package uses Python 3.9 or newer and only the standard library.
 
 ## Quick start
 
+From the package root, run:
+
 ```bash
 cd scripts
-python3 depth_histogram.py       # <1s
-python3 bridge_lemma.py          # <1s
-python3 disjointness_L3_L5.py    # <5s
-python3 disjointness_L4.py       # <1s
-python3 section6_1_split.py      # <2s
-python3 walk_counts.py           # ~10 min (L=4 fresh brute force dominates)
+python depth_histogram.py
+python bridge_lemma.py
+python disjointness_L3_L5.py
+python disjointness_L4.py
+python section6_1_split.py
+python walk_counts.py
 ```
 
-Each script writes its output to `outputs/` as JSON and also prints a
-human-readable summary to stdout. `MANIFEST.json` records a SHA-256
-hash for every source file, script, and reference-result file in this
-package, together with a table mapping each script to the specific
-manuscript Table/Figure/Section it reproduces.
+Each script prints a summary, raises an error if its expected invariants
+fail, and writes a JSON result to `outputs/`. The `outputs/` directory is
+created at runtime and is intentionally absent from the distributed ZIP.
 
-## What "fresh" vs. "stored" means here
+## Fresh and stored computations
 
-Every script's docstring states explicitly which of the following applies,
-and `MANIFEST.json`'s `claim_map` restates it in one place:
+- `depth_histogram.py` re-aggregates the frozen per-orbit L=5 audit.
+- `bridge_lemma.py` rechecks the dependency windows in that frozen audit.
+- `disjointness_L3_L5.py` and `disjointness_L4.py` recompute the stated
+  decision-support disjointness tests from the frozen baseline repairs.
+- `section6_1_split.py` recomputes the 27/9 compatibility split from the
+  frozen L=3 baseline repairs.
+- `walk_counts.py` freshly enumerates L=3, exhaustively excludes repairs
+  of size below four for L=4, generates the walk families for L=3,4,5,
+  compares them exactly with the frozen M0 sets, and rechecks every
+  generated repair with the PWC oracle.
 
-| Category                               | Meaning                                                                                                                                                                                                                                         |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Fresh, this run**              | The script performs the full enumeration or check itself, from the frozen oracle, when you run it. No prior computed answer is trusted.                                                                                                         |
-| **Stored + consistency-checked** | The script loads a previously computed result and verifies it (e.g., re-validates every element against the oracle, or re-aggregates raw per-instance records into the reported totals), but does not repeat the original combinatorial search. |
+The strength of these checks differs by length. For L=3, minimality and
+the complete M0 family are independently recovered by exhaustive search.
+For L=4, exhaustive rejection of all smaller repairs establishes m0=4,
+while completeness of the 108-member size-4 family uses the manuscript's
+walk characterization and exact equality with the frozen M0. For L=5,
+minimality and completeness likewise rely on that characterization and
+the frozen reference; the script verifies exact set equality and PWC
+validity of all 324 members, but does not independently re-enumerate all
+smaller and size-5 candidates. Thus reference equality is an executable
+consistency check, not an independent proof of frozen-reference
+completeness for L=4 or L=5.
 
-This distinction matters most for `reproduce_walk_counts.py`: the
-`L=3` and `L=4` rows are freshly re-enumerated by brute force every
-time you run it; the `L=5` row (`|M0(chain_5)|=324`) is loaded from
-`reference_results/chain_L5_base_M0_reference.json` and only
-consistency-checked, because a from-scratch brute force over its
-candidate universe (`|U_5|=28`, `C(28,5)=98280` subsets to test at the
-minimal size alone) is too expensive to run routinely. This is stated
-in the script's own output, not just in this README.
+The 76-orbit L=5 classification and the selection of its 12 nontrivial
+instances are also frozen inputs rather than a freshly regenerated
+classification. The observed maximum depth 3 supplies a witness attaining
+the conditional theorem's bound; these scripts do not prove the theorem.
 
-Two results — the `L=4` row of Table 3 (decision-support disjointness)
-and the Section 6.1 / Figure 4 worked example (27/9 split) — had **no
-surviving generating script** anywhere in the project's working
-history; only their recorded outcome was carried forward from an
-earlier session. Both were independently re-derived from scratch for
-this package (`reproduce_disjointness_L4.py`,
-`reproduce_section6_1_split.py`) and matched the previously recorded
-outcome exactly. This is noted explicitly in each script's docstring.
+The finite-family checks for L=3,4,5 are not evidence that the
+decision-support hypothesis holds for arbitrary L. They establish only
+the finite cases described in the manuscript.
 
-## Exhaustive vs. conditional-finite-family results
+## Expected results
 
-This distinction is a central scoping point of the manuscript itself
-(see Section 3's "Scope remark" and Section 7), and is preserved here:
+| Script | Expected result |
+| --- | --- |
+| `depth_histogram.py` | 76 orbits / 528 pairs; depths 64,6,2,4; maximum 3 |
+| `bridge_lemma.py` | 12 PASS / 0 FAIL |
+| `disjointness_L3_L5.py` | L3: 3/3 and L5: 12/12, no leaks |
+| `disjointness_L4.py` | L4: 6/6, no leaks |
+| `section6_1_split.py` | 27 False / 9 True; both classes uniform |
+| `walk_counts.py` | L3=36, L4=108, L5=324; exact reference equality |
 
-- **Exhaustive within the investigated setting**: the chain_5
-  classification (`reproduce_depth_histogram.py`, 76 orbits / 528
-  pairs, all Chebyshev-distance-2 isolated pairs at L=5) and the
-  disjointness checks (`reproduce_disjointness_L3_L5.py`,
-  `reproduce_disjointness_L4.py`, 21/21 instances across L=3,4,5) are
-  complete enumerations over their stated finite candidate spaces —
-  not samples.
-- **Conditional theorem, finite-family applicability check**: Theorem
-  5 (Bounded Compatibility Depth) is a conditional, deductive result —
-  *if* the decision-support disjointness hypothesis holds, depth ≤ 3
-  follows for any chain length, with no enumeration in the proof
-  itself (see manuscript Section 4). The scripts in this package that
-  touch disjointness are checking whether that *hypothesis* holds on
-  the investigated L=3,4,5 families — they are applicability evidence
-  for the theorem, not part of its proof, and they do **not**
-  establish the hypothesis for arbitrary L. The manuscript states this
-  explicitly (Section 5.2.1); this package does not extend that scope.
-- Proposition 2 (the walk-bijection / prefix-count law used to explain
-  `|M0(chain_L)|`) is likewise verified here only for L=3,4,5
-  (`reproduce_walk_counts.py`); no code in this package claims a
-  general-L result.
+## Package layout
 
-## Directory layout
-
-```
-reproducibility/
-├── README.md                    (this file)
-├── MANIFEST.json                (file hashes + script-to-claim map)
-├── requirements.txt
-├── src/                         frozen oracle + geometry/enumeration primitives
-├── scripts/                     one script per manuscript claim, see MANIFEST.json
-├── reference_results/           previously computed reference outputs, for comparison
-└── outputs/                     scripts write their results here when you run them
+```text
+reproducibility_package/
+  README.md
+  CONTENTS.txt
+  LICENSE
+  requirements.txt
+  MANIFEST.json
+  src/
+  scripts/
+  reference_results/
 ```
 
-## Correspondence to manuscript sections
+`MANIFEST.json` records the SHA-256 digest and byte size of every
+distributed file except itself. Regenerate it after any edit with:
 
-| Script                    | Manuscript target                    |
-| ------------------------- | ------------------------------------ |
-| `walk_counts.py`        | Table 1, Proposition 2               |
-| `depth_histogram.py`    | Table 2, Corollary 7 (sharpness)     |
-| `bridge_lemma.py`       | Lemma 3, Lemma 4 (consistency check) |
-| `disjointness_L3_L5.py` | Table 3 (L=3, L=5 rows), Section 5.2 |
-| `disjointness_L4.py`    | Table 3 (L=4 row), Section 5.2       |
-| `section6_1_split.py`   | Section 6.1, Figure 4                |
+```bash
+python scripts/generate_manifest.py
+```
 
-## License
-
-MIT (see `LICENSE`), covering `src/`, `scripts/`, and `reference_results/`.
-Please cite the accompanying manuscript when reusing this package.
-
-## Citing
-
-If you use this package, please cite the manuscript. An archival DOI
-for this package will be added here upon acceptance.
+The eight files in `reference_results/` are frozen inputs or archived
+copies of freshly reproduced results. Their provenance is stated in
+`CONTENTS.txt`.

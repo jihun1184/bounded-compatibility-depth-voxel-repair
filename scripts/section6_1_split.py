@@ -48,6 +48,8 @@ if __name__ == "__main__":
 
     n_true = sum(len(v) for v in classes.values() if v and v[0])
     n_false = sum(len(v) for v in classes.values() if v and not v[0])
+    if n_true != 9 or n_false != 27 or len(classes) != 2 or any(len(set(v)) != 1 for v in classes.values()):
+        raise AssertionError("expected a uniform 9/27 split across exactly two restriction classes")
     print(f"compatible (True): {n_true}   incompatible (False): {n_false}")
 
     print("\nrestriction classes:")

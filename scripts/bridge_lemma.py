@@ -47,6 +47,8 @@ if __name__ == "__main__":
         results.append({"orbit_id": row["orbit_id"], "status": "PASS" if orbit_ok else "FAIL"})
 
     print(f"Orbits with nontrivial dependency window checked: {n_checked}")
+    if (n_checked, n_pass, n_fail) != (12, 12, 0):
+        raise AssertionError(f"expected 12/12 PASS and 0 FAIL, got {n_checked}/{n_pass}/{n_fail}")
     print(f"  PASS: {n_pass}")
     print(f"  FAIL: {n_fail}")
 

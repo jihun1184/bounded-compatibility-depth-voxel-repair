@@ -51,12 +51,15 @@ L4_INSTANCES = {
 }
 
 if __name__ == "__main__":
-    M0 = json.load(open(os.path.join(REF_DIR, "chain_L4_base_M0_reference.json")))["M0"]
+    data = json.load(open(os.path.join(REF_DIR, "chain_L4_base_M0_reference.json")))
+    M0 = data.get("M0", data.get("base"))
     D_M = {tuple(v) for B in M0 for v in B}
     print(f"D_M(chain_L4) size: {len(D_M)}")
 
     results = [check_instance(a, b, q, D_M, label) for label, (a, b, q) in L4_INSTANCES.items()]
     n_leak = sum(r["leak"] for r in results)
+    if len(results) != 6 or n_leak != 0:
+        raise AssertionError(f"expected 6/6 leak-free instances, got {len(results)} with {n_leak} leaks")
     print(f"chain_L4: {len(results)} instances checked, {n_leak} leaks found")
     for r in results:
         print(" ", r["label"], "leak=", r["leak"])

@@ -67,6 +67,8 @@ if __name__ == "__main__":
     }
     L3_results = [check_instance(a, b, q, D_M_L3, tag) for tag, (a, b, q) in L3_pairs.items()]
     n_leak_l3 = sum(r["leak"] for r in L3_results)
+    if len(L5_results) != 12 or n_leak != 0 or len(L3_results) != 3 or n_leak_l3 != 0:
+        raise AssertionError("expected L5 12/12 and L3 3/3 leak-free instances")
     print(f"chain_L3: {len(L3_results)} instances checked, {n_leak_l3} leaks found")
     for r in L3_results:
         print(" ", r["label"], "leak=", r["leak"])

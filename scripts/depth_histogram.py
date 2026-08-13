@@ -29,6 +29,13 @@ if __name__ == "__main__":
     n_pairs = sum(r["orbit_size"] for r in rows)
     max_depth = max(orbit_hist)
 
+    expected_orbits = {0: 64, 1: 6, 2: 2, 3: 4}
+    expected_pairs = {0: 468, 1: 40, 2: 8, 3: 12}
+    if (n_orbits, n_pairs, dict(orbit_hist), dict(pair_hist), max_depth) != (
+        76, 528, expected_orbits, expected_pairs, 3
+    ):
+        raise AssertionError("depth histogram does not match the frozen expected result")
+
     print(f"total orbits: {n_orbits}  total pairs: {n_pairs}")
     for d in sorted(orbit_hist):
         print(f"  depth {d}: {orbit_hist[d]:3d} orbits, {pair_hist[d]:4d} pairs")
