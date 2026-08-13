@@ -1,0 +1,2 @@
+# No external dependencies.
+# Python >= 3.9 standard library only (itertools, json, os, sys, time, collections).

@@ -1,0 +1,137 @@
+{
+  "package": "Reproducibility package for \"Bounded Compatibility Depth in Local Repairs of P-Well-Composed Voxel Sets\"",
+  "generated": "2026-08-12",
+  "note": "File names in this package are result/claim-oriented, independent of internal research-log checkpoint numbering.",
+  "src": {
+    "__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "geometry_utils.py": {
+      "sha256": "9fe134199a40c87c729f7ccbe98d2cdfece1ee3a8377e5bc3fe2f1b905114f37",
+      "size_bytes": 2701
+    },
+    "pcm_check.py": {
+      "sha256": "1f403ee53492c1be3bfe7fa4e7ec265f6c2b1cc843cd4a2e298f2a87901c54de",
+      "size_bytes": 10277
+    },
+    "repair_enumeration_core.py": {
+      "sha256": "1494e673864f556913f27f637ab63f4cc670a92f7c4cedb3cd21a4240817b9c9",
+      "size_bytes": 2577
+    },
+    "stage2_repair_core.py": {
+      "sha256": "0ea7cebf1ef07498a0eb82a7476c2986e40243c238250852225bf55e2ee4d9e1",
+      "size_bytes": 10703
+    }
+  },
+  "scripts": {
+    "reproduce_bridge_lemma.py": {
+      "sha256": "745296143612ee3829cd69cf47084dfbbd97de0d9b250933213cb754f12e1e3f",
+      "size_bytes": 2516
+    },
+    "reproduce_depth_histogram.py": {
+      "sha256": "362f058811823a7ede26ac068797617c283d2bab33213c12a3d6bb757b2a4c53",
+      "size_bytes": 2335
+    },
+    "reproduce_disjointness_L3_L5.py": {
+      "sha256": "f7a727e51faa7c5bab598b4bb8f445c8754b4012dcb4c783f471466423648027",
+      "size_bytes": 3631
+    },
+    "reproduce_disjointness_L4.py": {
+      "sha256": "7369c1a321092bfbef035d611210d3c9fc235758007a9cb02649a1c83522ce28",
+      "size_bytes": 3110
+    },
+    "reproduce_section6_1_split.py": {
+      "sha256": "f7b11427c5ef66c68e2aa2ea051c964690be17fb812dae031ddddfeed134f079",
+      "size_bytes": 2964
+    },
+    "reproduce_walk_counts.py": {
+      "sha256": "6b176044d005bbb37d0876ea522afd51c0f69df6db2888dfbc23377ed5ff2b91",
+      "size_bytes": 3957
+    }
+  },
+  "reference_results": {
+    "bridge_lemma_reference.json": {
+      "sha256": "427e4a7fc97b4e13b4401034cf5990d1fd90f33b186eae5551f8875137fc615b",
+      "size_bytes": 5676
+    },
+    "chain_L3_base_M0_reference.json": {
+      "sha256": "1273b7d9e5366cc65b73244702626fbd8f0f0bd177824768dc39cc5e64016224",
+      "size_bytes": 1412
+    },
+    "chain_L4_base_M0_reference.json": {
+      "sha256": "ba016e9265132dadead47e49288d5a547c1874af663efb432bb7e4dd6106a844",
+      "size_bytes": 5525
+    },
+    "chain_L5_base_M0_reference.json": {
+      "sha256": "38a9ea9bbec04fe9cfdb686f58ccce5a0f53aaa652a9360b07020c58e1c01d93",
+      "size_bytes": 20420
+    },
+    "chain_L5_orbit_audit_reference.json": {
+      "sha256": "75a5dfe09f740cea6febde285a27fdabdaea0dd59bdd9a576618554642312ca9",
+      "size_bytes": 49247
+    },
+    "disjointness_L3_L5_reference.json": {
+      "sha256": "e24cca288c7492d74a995cb8a2c8e22c8e64c79d76dd44f800e6f08773376357",
+      "size_bytes": 4060
+    },
+    "disjointness_L4_reference.json": {
+      "sha256": "7f648e53a947ff4c1bba918034182f028fb819a8b408135720095c3dfaaba050",
+      "size_bytes": 2042
+    },
+    "section6_1_Fpair_M0_reference.json": {
+      "sha256": "2d45256dc6d857d9fa9d0e8d675fba67614e46bb8ead670edce26957f23e2826",
+      "size_bytes": 6222
+    }
+  },
+  "claim_map": [
+    {
+      "manuscript_target": "Table 1 (|M0(chain_L)|, m0, for L=3,4,5)",
+      "script": "scripts/reproduce_walk_counts.py",
+      "method": "L=3,4: fresh brute force this run. L=5: stored + consistency-checked (full fresh re-enumeration is combinatorially large; see script docstring).",
+      "expected": "L=3: m0=3,|M0|=36. L=4: m0=4,|M0|=108. L=5: |M0|=324.",
+      "approx_runtime": "L=3 ~1 min, L=4 ~7-8 min, L=5 check ~1 min"
+    },
+    {
+      "manuscript_target": "Table 2 (chain_5 depth histogram, 76 orbits / 528 pairs) and Corollary 7 (sharpness, max depth=3)",
+      "script": "scripts/reproduce_depth_histogram.py",
+      "method": "Stored raw per-orbit records, re-aggregated from scratch in this run.",
+      "expected": "76 orbits / 528 pairs; depth histogram {0:64,1:6,2:2,3:4} orbits / {0:468,1:40,2:8,3:12} pairs; max depth 3.",
+      "approx_runtime": "<1 second"
+    },
+    {
+      "manuscript_target": "Lemma 3 / Lemma 4 consistency (dependency window fits inside q_z +/- 1)",
+      "script": "scripts/reproduce_bridge_lemma.py",
+      "method": "Stored raw per-orbit records, re-checked from scratch in this run.",
+      "expected": "12/12 orbits with a nontrivial window PASS, 0 FAIL.",
+      "approx_runtime": "<1 second"
+    },
+    {
+      "manuscript_target": "Table 3, L=3 and L=5 rows (decision-support disjointness, Section 5.2)",
+      "script": "scripts/reproduce_disjointness_L3_L5.py",
+      "method": "Fresh, this run: candidate_voxels(h) recomputed and checked against D_M for every relevant cell.",
+      "expected": "chain_L3: 3/3 checked, 0 leaks. chain_L5: 12/12 checked, 0 leaks.",
+      "approx_runtime": "<5 seconds"
+    },
+    {
+      "manuscript_target": "Table 3, L=4 row (decision-support disjointness, Section 5.2)",
+      "script": "scripts/reproduce_disjointness_L4.py",
+      "method": "Fresh, this run. No generating script for this result survived in any prior working archive; only the recorded outcome (reference_results/disjointness_L4_reference.json) was carried forward. Independently re-derived here.",
+      "expected": "chain_L4: 6/6 checked, 0 leaks.",
+      "approx_runtime": "<1 second"
+    },
+    {
+      "manuscript_target": "Section 6.1 / Figure 4 (27 False / 9 True restriction-class split)",
+      "script": "scripts/reproduce_section6_1_split.py",
+      "method": "Fresh, this run. No generating script for this result survived in any prior working archive; only M0(chain_3) and the narrative description of the outcome were carried forward. Independently re-derived here.",
+      "expected": "compatible=9, incompatible=27; both restriction classes internally uniform; compatibility depth 1.",
+      "approx_runtime": "<2 seconds"
+    }
+  ],
+  "license": {
+    "LICENSE": {
+      "sha256": "a3711724871fa3e6572f5e79be47c14449476076c0f463aa32bb970cfe3e6b4a",
+      "size_bytes": 1324
+    }
+  }
+}
