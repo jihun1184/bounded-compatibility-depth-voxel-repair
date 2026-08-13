@@ -1,5 +1,6 @@
 """
-Reproduces manuscript Section 6.1's worked example (Figure 4)
+Reproduces manuscript Section 6.1's worked example (Figure 4).
+
 Expected output:
     |M0(chain_3)| = 36
     compatible (True): 9   incompatible (False): 27
