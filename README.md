@@ -11,12 +11,12 @@ No external dependencies: Python ≥ 3.9 standard library only (see
 
 ```bash
 cd scripts
-python3 reproduce_depth_histogram.py       # <1s
-python3 reproduce_bridge_lemma.py          # <1s
-python3 reproduce_disjointness_L3_L5.py    # <5s
-python3 reproduce_disjointness_L4.py       # <1s
-python3 reproduce_section6_1_split.py      # <2s
-python3 reproduce_walk_counts.py           # ~10 min (L=4 fresh brute force dominates)
+python3 depth_histogram.py       # <1s
+python3 bridge_lemma.py          # <1s
+python3 disjointness_L3_L5.py    # <5s
+python3 disjointness_L4.py       # <1s
+python3 section6_1_split.py      # <2s
+python3 walk_counts.py           # ~10 min (L=4 fresh brute force dominates)
 ```
 
 Each script writes its output to `outputs/` as JSON and also prints a
@@ -30,9 +30,9 @@ manuscript Table/Figure/Section it reproduces.
 Every script's docstring states explicitly which of the following applies,
 and `MANIFEST.json`'s `claim_map` restates it in one place:
 
-| Category | Meaning |
-|---|---|
-| **Fresh, this run** | The script performs the full enumeration or check itself, from the frozen oracle, when you run it. No prior computed answer is trusted. |
+| Category                               | Meaning                                                                                                                                                                                                                                         |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Fresh, this run**              | The script performs the full enumeration or check itself, from the frozen oracle, when you run it. No prior computed answer is trusted.                                                                                                         |
 | **Stored + consistency-checked** | The script loads a previously computed result and verifies it (e.g., re-validates every element against the oracle, or re-aggregates raw per-instance records into the reported totals), but does not repeat the original combinatorial search. |
 
 This distinction matters most for `reproduce_walk_counts.py`: the
@@ -95,14 +95,14 @@ reproducibility/
 
 ## Correspondence to manuscript sections
 
-| Script | Manuscript target |
-|---|---|
-| `reproduce_walk_counts.py` | Table 1, Proposition 2 |
-| `reproduce_depth_histogram.py` | Table 2, Corollary 7 (sharpness) |
-| `reproduce_bridge_lemma.py` | Lemma 3, Lemma 4 (consistency check) |
-| `reproduce_disjointness_L3_L5.py` | Table 3 (L=3, L=5 rows), Section 5.2 |
-| `reproduce_disjointness_L4.py` | Table 3 (L=4 row), Section 5.2 |
-| `reproduce_section6_1_split.py` | Section 6.1, Figure 4 |
+| Script                    | Manuscript target                    |
+| ------------------------- | ------------------------------------ |
+| `walk_counts.py`        | Table 1, Proposition 2               |
+| `depth_histogram.py`    | Table 2, Corollary 7 (sharpness)     |
+| `bridge_lemma.py`       | Lemma 3, Lemma 4 (consistency check) |
+| `disjointness_L3_L5.py` | Table 3 (L=3, L=5 rows), Section 5.2 |
+| `disjointness_L4.py`    | Table 3 (L=4 row), Section 5.2       |
+| `section6_1_split.py`   | Section 6.1, Figure 4                |
 
 ## License
 
