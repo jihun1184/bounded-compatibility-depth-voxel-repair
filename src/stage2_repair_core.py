@@ -1,42 +1,3 @@
-"""
-stage2_repair_core.py (v3)
-
-Changes from v2, all per external review, each independently verified
-before making the change:
-
-  1. Performance: `pwc_verdict` now caches by frozenset(voxels). This
-     matters because `certification_pass` was recomputing
-     `pwc_verdict(X0)` on every single candidate batch (unchanged
-     input, ~93 times per instance at max_size=3) -- confirmed as the
-     dominant cost by direct profiling before this rewrite. `X0` is
-     verified once and reused; `Z` is still computed fresh per batch
-     (correctly -- it differs every time) via the SAME independent code
-     path as before (the point of `direct_ok` vs `certified_ok` is
-     that they must NOT share a code path, so no cache is shared
-     between them for Z; only the repeated, unchanged X0 lookup is
-     cached).
-  2. Honest naming: `min_direct_global_size` / `min_certified_global_size`
-     renamed to `min_direct_pwc_size_within_universe` /
-     `min_certified_pwc_size_within_universe`, since the search only
-     ranges over `R subseteq U(h)` with `|R| <= max_size` -- NOT a
-     genuine unrestricted global minimum. The old names overstated
-     what was measured.
-  3. Three-way divergence classification, replacing the single
-     `diverged` boolean that silently dropped the case where
-     target-local succeeds but no certified-feasible batch exists
-     within the searched universe/bound at all:
-        - finite_size_divergence: both feasible, minimal sizes differ
-        - feasibility_divergence: target-local feasible, but NO batch
-          within U(h) up to max_size is certified-feasible
-        - oracle_divergence: direct_ok != certified_ok on some batch
-       (feasibility_divergence is explicitly scoped
-       "within_universe_and_bound" in its own field name and must not
-       be read as a claim about the unrestricted problem.)
-  4. Elapsed-time instrumentation added to every search record and to
-     the top-level run manifest, so "ran cleanly end-to-end" is an
-     inspectable log entry, not just an unverifiable claim.
-"""
-
 import time
 from itertools import product, combinations
 from pcm_check import (
@@ -46,14 +7,7 @@ from pcm_check import (
 )
 
 RANK = 3
-
 _pwc_verdict_cache = {}
-
-
-# ---------------------------------------------------------------------
-# Combinatorial geometry helpers (unchanged, pure geometry, no is_pwc
-# involved -- not touched by any of the fixes above)
-# ---------------------------------------------------------------------
 
 def candidate_voxels(cell):
     opts = []
@@ -181,9 +135,6 @@ def A_E(batch_voxels):
 
 
 def certification_pass(X0_voxels, Z_voxels, E_total_voxels):
-    """Theorem-based check: precondition PWC(X0) (cached lookup, same
-    logical check as before -- just not recomputed from scratch every
-    call), batch = E_total, domain = F(Z) intersect A_{E_total}."""
     verdict_x0 = pwc_verdict(X0_voxels)
     assert verdict_x0, "certification_pass precondition PWC(X0) failed"
     _, all_cells_z = build_complex(Z_voxels)
@@ -270,10 +221,6 @@ def search_minimal_repair(problem: RepairProblem, witness: DefectWitness, univer
 
 
 def classify_divergence(record):
-    """Three-way classification per review: finite-size / feasibility /
-    oracle divergence, kept as separate flags (not collapsed into one
-    boolean, since the old single `diverged` flag silently dropped the
-    feasibility case)."""
     tgt = record["min_target_local_size"]
     cert = record["min_certified_pwc_size_within_universe"]
     return {

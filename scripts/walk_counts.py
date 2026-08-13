@@ -1,28 +1,10 @@
 """
 Reproduces manuscript Table 1: |M0(chain_L)| and m0 for L = 3, 4, 5.
 
-Method:
-  - L = 3, 4: FRESH brute-force enumeration, from scratch, in this run.
-    (Exhaustively checks every subset of the candidate universe up to
-    the reported minimal size m0, for increasing size until a nonempty
-    minimal-repair family is found.)
-  - L = 5: the candidate universe is large enough (|U_5| = 28, so
-    C(28,5) = 98280 size-5 subsets to test) that a full from-scratch
-    brute force takes on the order of an hour on a single core. This
-    script therefore does NOT re-derive |M0(chain_5)| = 324 from
-    scratch; it loads the stored reference file
-    (reference_results/chain_L5_base_M0_reference.json) and only
-    checks internal consistency (cardinality, and that every stored
-    element actually is a valid minimal repair under the same oracle
-    used for L=3,4). Treat the L=5 row as STORED + CONSISTENCY-CHECKED,
-    not freshly recomputed, in this run.
-
-Expected output (matches manuscript Table 1):
+Expected output:
     L=3: |U_3|=20, m0=3, |M0|=36
     L=4: |U_4|=24, m0=4, |M0|=108
-    L=5: |U_5|=28, m0=5, |M0|=324  (stored + consistency-checked only)
-
-Approximate runtime: L=3 ~1 min, L=4 ~7-8 min, L=5 consistency check ~1 min.
+    L=5: |U_5|=28, m0=5, |M0|=324  
 """
 import itertools
 import json

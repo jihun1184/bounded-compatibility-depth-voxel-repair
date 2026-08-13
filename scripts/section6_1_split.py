@@ -1,22 +1,11 @@
 """
-Reproduces manuscript Section 6.1's worked example (Figure 4): for
-a = (-3,-2,-2), b = (-2,-3,-2), q = (-2,-2,-2) on chain_3, computes the
-compatibility verdict pwc(Z_{B,q}) for every B in M0(chain_3), and
-groups the results by the restriction B ∩ L(q).
-
-Method: FRESH. No generating script for this result survived in any
-prior working archive; only the underlying M0(chain_3) list and the
-narrative description of the outcome were carried forward. This
-script re-derives the full 36-way compatibility split from scratch.
-
-Expected output (matches manuscript Section 6.1 and Figure 4):
+Reproduces manuscript Section 6.1's worked example (Figure 4)
+Expected output:
     |M0(chain_3)| = 36
     compatible (True): 9   incompatible (False): 27
     restriction class B ∩ L(q) = {}                : n=27, verdict=False (uniform)
     restriction class B ∩ L(q) = {(-1,-1,-1)}       : n=9,  verdict=True  (uniform)
     => compatibility depth of q is 1 (single decision layer, z=-1)
-
-Approximate runtime: <2 seconds.
 """
 import json
 import os

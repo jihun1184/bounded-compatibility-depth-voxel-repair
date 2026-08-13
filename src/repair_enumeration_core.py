@@ -1,9 +1,3 @@
-r"""
-repair_enumeration_core.py -- Existential Safe-Witness Search.
-W_R(w)      = {h : h in Def(F0), h in Def(F0 xor (R\{w})), w in candidate_voxels(h)}
-W_R^safe(w) = {h in W_R(w) : h not in N(u) for all u in R\{w}}   (i.e. u not in candidate_voxels(h))
-Target failure: W_R(w) != empty AND W_R^safe(w) == empty.
-"""
 import itertools, json
 from pcm_check import build_complex, border_of
 from stage2_repair_core import candidate_voxels, failure_type_at, RANK, pwc_verdict
@@ -34,7 +28,6 @@ def brute_min_repair(Y, universe, max_size):
     return None, []
 
 def analyze_case(F0, R):
-    """For a given F0 and minimal repair R, compute W_R(w), W_safe(w) for each w in R."""
     F0 = frozenset(F0); R = frozenset(R)
     d0 = defect_set(F0)
     results = {}

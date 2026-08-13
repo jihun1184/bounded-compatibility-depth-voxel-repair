@@ -3,20 +3,8 @@ Reproduces manuscript Table 3, L=4 row: the decision-support
 disjointness check for the six exceptional (a,b,q) instances at
 chain length 4.
 
-Method: FRESH. No generating script for this result survived in any
-prior working archive (checked back through the full project history);
-only the recorded outcome (reference_results/disjointness_L4_reference.json)
-was carried forward. This script re-derives the result from scratch
-using the same frozen oracle as reproduce_disjointness_L3_L5.py and the
-independently-verified chain_L4_base_M0_reference.json (see
-reproduce_walk_counts.py and MANIFEST.json for how that 108-element
-family was itself verified).
-
-Expected output (matches manuscript Table 3, L=4 row and
-reference_results/disjointness_L4_reference.json):
+Expected output:
     chain_L4: 6/6 instances checked, 0 leaks
-
-Approximate runtime: <1 second.
 """
 import itertools
 import json

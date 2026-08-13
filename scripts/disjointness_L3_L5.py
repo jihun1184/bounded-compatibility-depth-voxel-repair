@@ -1,22 +1,10 @@
 """
 Reproduces manuscript Table 3, L=3 and L=5 rows: the decision-support
-disjointness check underlying Lemma 3's hypothesis --
-    candidate_voxels(h) ∩ D_M = ∅  for every h in (N(a) ∪ N(b)) \\ N(q)
--- for the L=3 transplant instances (Section 6.1) and every exceptional
-(orbit, q) instance found in the L=5 classification.
+disjointness check.
 
-Method: FRESH, RUN IN THIS SCRIPT. D_M (= D_B here, the union of every
-voxel appearing in any baseline repair) is built directly from the
-stored base-M0 reference files, and candidate_voxels(h) is recomputed
-from scratch for every relevant cell h using the same frozen oracle
-used throughout. This is a direct, exhaustive, finite computation --
-not a re-derivation of the abstract geometric argument.
-
-Expected output (matches manuscript Table 3, L=3 and L=5 rows):
+Expected output:
     chain_L3: 3/3 instances checked, 0 leaks
     chain_L5: 12/12 instances checked, 0 leaks
-
-Approximate runtime: <5 seconds.
 """
 import itertools
 import json

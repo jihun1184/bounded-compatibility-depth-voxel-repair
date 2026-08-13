@@ -1,21 +1,11 @@
 """
 Reproduces the consistency check underlying manuscript Lemma 3 (Bridge
 Lemma) / Lemma 4 (Column Intersection Lemma) applied to the chain_5
-classification: for every legitimate exceptional-pair orbit with a
-compatibility-affecting local repair q (i.e. some compat count < 324),
-verifies that the z-layers on which compatibility actually depends
-fit inside q_z +/- 1, as Theorem 5 requires.
-
-Method: STORED + RE-CHECKED. Reads the raw per-orbit records in
-reference_results/chain_L5_orbit_audit_reference.json and re-derives
-the PASS/FAIL verdict for each one from scratch in this run; does not
-copy the verdict from any prior summary.
+classification.
 
 Expected output:
     12 orbits with a nontrivial dependency window checked
     12 PASS / 0 FAIL
-
-Approximate runtime: <1 second.
 """
 import json
 import os

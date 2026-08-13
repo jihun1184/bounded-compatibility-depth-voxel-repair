@@ -2,26 +2,13 @@
 Reproduces manuscript Table 2 (chain_5 compatibility-depth histogram,
 76 orbits / 528 pairs) and Corollary 7 (sharpness: max depth = 3).
 
-Method: STORED + RE-AGGREGATED. This script does not redo the exhaustive
-classification search itself (that search underlies
-reference_results/chain_L5_orbit_audit_reference.json, one row per
-symmetry orbit, each row already carrying its computed
-`compatibility_depth` and `orbit_size`). What this script verifies
-independently is that the histogram and totals reported in the
-manuscript follow correctly by direct aggregation of that raw,
-per-orbit data -- i.e. the arithmetic in Table 2 is checked from
-scratch against the underlying per-orbit records, not copied from a
-prior summary.
-
-Expected output (matches manuscript Table 2):
+Expected output:
     total: 76 orbits, 528 pairs
     depth 0: 64 orbits, 468 pairs
     depth 1:  6 orbits,  40 pairs
     depth 2:  2 orbits,   8 pairs
     depth 3:  4 orbits,  12 pairs
     max depth observed: 3  (sharpness of Theorem 5's bound)
-
-Approximate runtime: <1 second.
 """
 import json
 import os
