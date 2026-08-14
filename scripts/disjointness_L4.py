@@ -38,9 +38,9 @@ def check_instance(a, b, q, D_M, label):
             "leak": len(leak_cells) > 0, "leak_cells": leak_cells}
 
 
-# The six exceptional orbits at L=4 (see MANIFEST.json for provenance of
-# these coordinates: independently re-verified against the manuscript's
-# six-orbit taxonomy in Section 5).
+# Six frozen L=4 instances used for the Table 3 applicability check.
+# Their coordinate list is retained as a frozen input; this package does
+# not independently regenerate or prove completeness of the list.
 L4_INSTANCES = {
     "orbit15": ((-3, -2, -2), (-2, -3, -2), (-2, -2, -2)),
     "orbit17": ((-3, -2, -2), (-2, -2, -3), (-2, -2, -2)),
