@@ -1,6 +1,6 @@
 """
-Reproduces the consistency check underlying manuscript Lemma 3 (Bridge
-Lemma) / Lemma 4 (Column Intersection Lemma) applied to the chain_5
+Reproduces the consistency check underlying manuscript Lemma 4 (Bridge
+Lemma) / Lemma 5 (Column Intersection Lemma) applied to the chain_5
 classification.
 
 Expected output:

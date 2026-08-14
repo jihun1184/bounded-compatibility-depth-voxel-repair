@@ -1,6 +1,6 @@
 {
   "package": "Bounded Compatibility Depth reproducibility package",
-  "generated": "2026-08-13",
+  "generated": "2026-08-14",
   "manifest_scope": "all distributed files except MANIFEST.json itself",
   "files": {
     ".gitignore": {
@@ -16,8 +16,8 @@
       "size_bytes": 1324
     },
     "README.md": {
-      "sha256": "b8bae930e8136c8abb8659912cec5af504785a14cbc329562985d76aa0d7d56a",
-      "size_bytes": 3544
+      "sha256": "b91cc970a359a1406ae1b460a0b0e0c7080e5fe721ea18cc23afe3f57d171855",
+      "size_bytes": 3475
     },
     "reference_results/bridge_lemma_reference.json": {
       "sha256": "427e4a7fc97b4e13b4401034cf5990d1fd90f33b186eae5551f8875137fc615b",
@@ -56,12 +56,12 @@
       "size_bytes": 113
     },
     "scripts/bridge_lemma.py": {
-      "sha256": "5af96d08a6b33e18cab3b1f1f2105d8fd138bc6399ee5b0ab71997e3a5609438",
+      "sha256": "289e976ab11c60f449c7c1addcacaf3708f950b161b0897b27a6b352de42c253",
       "size_bytes": 2154
     },
     "scripts/depth_histogram.py": {
-      "sha256": "feae869ca1c7b5757e640da891c31bd812588128da7506a078e968b6f55b4159",
-      "size_bytes": 2010
+      "sha256": "646f79b8dc419ee57f1a1717b1100d11a0402fc0b531f4ee3b27c3af0fd8d7c9",
+      "size_bytes": 2046
     },
     "scripts/disjointness_L3_L5.py": {
       "sha256": "6231c0554bfaa649ade96fa4893f7a55e7f739b148159aba672b82f3a6441a0d",
@@ -72,11 +72,11 @@
       "size_bytes": 2657
     },
     "scripts/generate_manifest.py": {
-      "sha256": "95db939be51cc5c03b99863c08a9498ee52aa76e64731bb5425994fee263dfd5",
-      "size_bytes": 2443
+      "sha256": "62f83d89f832b02f3a1575c7f382059f221c27bf2696a1bf23900636c474a22f",
+      "size_bytes": 2546
     },
     "scripts/section6_1_split.py": {
-      "sha256": "c37dcc0adc9a0c44b0d42a78d201147bc1c51fa00909ba809ccf6b4d5eea259e",
+      "sha256": "72bf7c8600be324f5ba643a1b590b919d17b6d887ce60c91303b2eece00a5f40",
       "size_bytes": 2632
     },
     "scripts/walk_counts.py": {
@@ -105,11 +105,11 @@
     }
   },
   "claim_map": {
-    "Table 1 / Proposition 2": "scripts/walk_counts.py",
-    "Table 2 / Corollary 7": "scripts/depth_histogram.py",
-    "Lemmas 3 and 4": "scripts/bridge_lemma.py",
+    "Table 1 (m0, |M0| columns; L=3,4 |U_L| also) / Proposition 3 (bijection formula |M0|=4*3^(L-1) only, not the per-k prefix law)": "scripts/walk_counts.py",
+    "Table 2 / Corollary 8": "scripts/depth_histogram.py",
+    "Lemmas 4 and 5": "scripts/bridge_lemma.py",
     "Table 3, L=3 and L=5": "scripts/disjointness_L3_L5.py",
     "Table 3, L=4": "scripts/disjointness_L4.py",
-    "Section 6.1 / Figure 4": "scripts/section6_1_split.py"
+    "Section 6.1 / Figure 5": "scripts/section6_1_split.py"
   }
 }

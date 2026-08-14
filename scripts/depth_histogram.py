@@ -1,6 +1,6 @@
 """
 Reproduces manuscript Table 2 (chain_5 compatibility-depth histogram,
-76 orbits / 528 pairs) and Corollary 7 (sharpness: max depth = 3).
+76 orbits / 528 pairs; manuscript now calls these classes) and Corollary 8 (sharpness: max depth = 3).
 
 Expected output:
     total: 76 orbits, 528 pairs
@@ -8,7 +8,7 @@ Expected output:
     depth 1:  6 orbits,  40 pairs
     depth 2:  2 orbits,   8 pairs
     depth 3:  4 orbits,  12 pairs
-    max depth observed: 3  (sharpness of Theorem 5's bound)
+    max depth observed: 3  (sharpness of Theorem 6's bound)
 """
 import json
 import os

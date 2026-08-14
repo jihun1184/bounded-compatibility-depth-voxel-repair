@@ -46,12 +46,12 @@ def build_manifest() -> dict:
         "manifest_scope": "all distributed files except MANIFEST.json itself",
         "files": files,
         "claim_map": {
-            "Table 1 / Proposition 2": "scripts/walk_counts.py",
-            "Table 2 / Corollary 7": "scripts/depth_histogram.py",
-            "Lemmas 3 and 4": "scripts/bridge_lemma.py",
+            "Table 1 (m0, |M0| columns; L=3,4 |U_L| also) / Proposition 3 (bijection formula |M0|=4*3^(L-1) only, not the per-k prefix law)": "scripts/walk_counts.py",
+            "Table 2 / Corollary 8": "scripts/depth_histogram.py",
+            "Lemmas 4 and 5": "scripts/bridge_lemma.py",
             "Table 3, L=3 and L=5": "scripts/disjointness_L3_L5.py",
             "Table 3, L=4": "scripts/disjointness_L4.py",
-            "Section 6.1 / Figure 4": "scripts/section6_1_split.py",
+            "Section 6.1 / Figure 5": "scripts/section6_1_split.py",
         },
     }
 

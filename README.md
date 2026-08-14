@@ -1,8 +1,7 @@
 # Reproducibility package
 
 Code and frozen reference data for the numeric claims in *Bounded
-Compatibility Depth in Local Repairs of P-Well-Composed Voxel Sets*
-(submitted to the SIAM Journal on Imaging Sciences).
+Compatibility Depth in Combinatorial Voxel Repair*.
 
 The package uses Python 3.9 or newer and only the standard library.
 

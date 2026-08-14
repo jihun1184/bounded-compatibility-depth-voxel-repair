@@ -1,5 +1,5 @@
 """
-Reproduces manuscript Section 6.1's worked example (Figure 4).
+Reproduces manuscript Section 6.1's worked example (Figure 5).
 
 Expected output:
     |M0(chain_3)| = 36
